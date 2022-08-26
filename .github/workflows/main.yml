@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
   hello_world_job:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Greetings job
     steps:
       - uses: actions/checkout@v3
