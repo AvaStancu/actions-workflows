@@ -11,6 +11,8 @@ jobs:
 
     # Service containers to run with `container-job`
     services:
+      logger:
+        image: chentex/random-logger
       # Label used to access the service container
       postgres:
         # Docker Hub image
