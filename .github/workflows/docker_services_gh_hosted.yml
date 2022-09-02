@@ -1,4 +1,4 @@
-name: PostgreSQL service example
+name: Self Hosted PostgreSQL service example
 on: push
 
 jobs:
