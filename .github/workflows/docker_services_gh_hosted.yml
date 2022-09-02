@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v3
         
       # Installs the pg package required in client.js
-      - name: Install pg package
+      - name: Install pg package yay
         run: npm install pg
 
 #       - name: Connect to PostgreSQL
