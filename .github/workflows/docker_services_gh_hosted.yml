@@ -17,9 +17,5 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         
-      - name: Wait 60 secs
-        run: sleep 600 
-        
-      # Installs the pg package required in client.js
-      - name: Install pg package !
-        run: npm install pg
+      - name: Wait 30 secs
+        run: sleep 300 
