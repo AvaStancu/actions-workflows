@@ -17,5 +17,5 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         
-      - name: Wait 30 secs
-        run: sleep 30 
+      - name: Wait 10 secs
+        run: sleep 10 
