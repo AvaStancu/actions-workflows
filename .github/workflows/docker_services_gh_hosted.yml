@@ -11,6 +11,8 @@ jobs:
     services:
       custom-fail-service:
         image: avastancu/docker-container-error-generator
+      second-custom-fail-service:
+        image: joannaakl/failing-docker:latest
 
     steps:
       # Downloads a copy of the code in your repository before running CI tests
