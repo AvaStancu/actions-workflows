@@ -1,4 +1,4 @@
-name: Validate consul-template
+name: Validate consul-template?
 
 on: push
 
