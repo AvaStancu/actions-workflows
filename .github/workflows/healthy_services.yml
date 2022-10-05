@@ -16,5 +16,3 @@ jobs:
     services:
       consul:
         image: public.ecr.aws/hashicorp/consul:1.11.2
-        ports:
-          - 8500:8500
