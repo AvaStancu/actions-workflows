@@ -1,5 +1,5 @@
 name: Self Hosted Service Example
-on: push
+on: workflow-dispatch
 
 jobs:
   # Label of the container job
