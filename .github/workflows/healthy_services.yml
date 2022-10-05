@@ -4,21 +4,14 @@ on: push
 
 jobs:
   validate-consul-template:
-    if: needs.read-workflow-settings.outputs.spa_only == 'false'
-    needs:
-      - read-workflow-settings
     runs-on: [self-hosted]
     steps:
       - name: checkout source code
         uses: actions/checkout@v3
 
       - name: run consul-template validation
-        env:
-          VAULT_ADDR: http://127.0.0.1:8200
-          VAULT_TOKEN: myroot
         run: |
           echo "we run consul-template validation here!"
-        shell: pwsh
 
     services:
       consul:
