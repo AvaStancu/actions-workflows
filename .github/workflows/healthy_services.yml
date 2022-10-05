@@ -1,6 +1,6 @@
 name: Validate consul-template?
 
-on: push
+on: [push, workflow_dispatch]
 
 jobs:
   validate-consul-template:
