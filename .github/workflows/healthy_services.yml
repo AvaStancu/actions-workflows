@@ -7,7 +7,7 @@ jobs:
     if: needs.read-workflow-settings.outputs.spa_only == 'false'
     needs:
       - read-workflow-settings
-    runs-on: [self-hosted, linux, shs]
+    runs-on: [self-hosted]
     steps:
       - name: checkout source code
         uses: actions/checkout@v3
