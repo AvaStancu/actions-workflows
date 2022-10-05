@@ -9,14 +9,11 @@ jobs:
 
     # Service containers to run with `container-job`
     services:
-#       custom-fail-service:
-#         image: avastancu/docker-container-error-generator
-#       second-custom-fail-service:
-#         image: joannaakl/failing-docker:latest
-       consul:
-        image: public.ecr.aws/hashicorp/consul:1.11.2
-        ports:
-          - 8500:8500
+      custom-fail-service:
+        image: avastancu/docker-container-error-generator
+      second-custom-fail-service:
+        image: joannaakl/failing-docker:latest
+
       
 
     steps:
