@@ -25,12 +25,3 @@ jobs:
         image: public.ecr.aws/hashicorp/consul:1.11.2
         ports:
           - 8500:8500
-      vault:
-        image: public.ecr.aws/hashicorp/vault:1.9.3
-        options: --name vault
-        ports:
-          - 8200:8200
-        env:
-          VAULT_DEV_ROOT_TOKEN_ID: myroot
-          VAULT_ADDR: http://127.0.0.1:8200
-          VAULT_TOKEN: myroot
