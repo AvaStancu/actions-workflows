@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  a:
+    strategy:
+      fail-fast: false
+      matrix:
+        job: [1, 2, 3]
+    runs-on: example-runnerdeploy
+    steps:
+      - run: |
+         printenv|sort
+         # echo "Hello World!" >> $GITHUB_STEP_SUMMARY
