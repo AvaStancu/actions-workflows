@@ -9,8 +9,10 @@ jobs:
       fail-fast: false
       matrix:
         job: [1, 2, 3]
-    runs-on: example-runnerdeploy
+    runs-on: example-auto-scale-runner-set
     steps:
       - run: |
          printenv|sort
          # echo "Hello World!" >> $GITHUB_STEP_SUMMARY
+
+
