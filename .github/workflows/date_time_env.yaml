@@ -1,0 +1,21 @@
+name: formatedtade
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  bypassdateparse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: set env
+        run: 
+          echo "LAST_RUN_MAX_CREATED=2022-11-28T22:21:19.657Z" >> $GITHUB_ENV
+      - name: check env
+        run: echo $LAST_RUN_MAX_CREATED
+          
+  datebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check format date
+        run: echo $LAST_RUN_MAX_CREATED
+        env:
+          LAST_RUN_MAX_CREATED: '2022-11-28T22:21:19.657Z'
