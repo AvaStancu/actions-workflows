@@ -1,4 +1,4 @@
-name: CI
+name: CI-ARC
 
 on:
   workflow_dispatch:
