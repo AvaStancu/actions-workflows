@@ -1,7 +1,16 @@
-name: CI-ARC
+name: CI-ARC-0
 
 on:
   workflow_dispatch:
   
 jobs:
-  
+  self-hosted-runner-job:
+    strategy:
+      fail-fast: false
+      matrix:
+        job: [1, 2, 3]
+    runs-on: example-auto-scale-runner-set
+    steps:
+      - run: |
+         printenv|sort
+         # echo "Hello World!" >> $GITHUB_STEP_SUMMARY
