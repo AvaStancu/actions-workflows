@@ -1,1 +1,7 @@
+name: CI-ARC
 
+on:
+  workflow_dispatch:
+  
+jobs:
+  
