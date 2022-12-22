@@ -6,10 +6,7 @@ ENV GITHUB_OWNER "myorganization"
 ENV RUNNER_WORKDIR "_work"
 ENV TZ="Europe/London"
 
-ARG DEBIAN_FRONTEND="noninteractive"
-
-
-RUN apt-get update \
+RUN DEBIAN_FRONTEND="noninteractive" apt-get update \
   && apt-get install -y \
   ca-certificates \
   curl \
