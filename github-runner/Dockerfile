@@ -36,10 +36,9 @@ RUN adduser --uid 1000 --gecos "GitHub Runner" --disabled-password github-runner
   echo 'github-runner ALL=(ALL) NOPASSWD:ALL' | sudo EDITOR='tee -a' visudo
 USER 1000
 
-WORKDIR /home/github-runner
+WORKDIR /github-runner
 
 # Install everything needed for the GitHub Action self-hosted-runner
-RUN curl -Ls https://github.com/actions/runner/releases/download/v${GITHUB_RUNNER_VERSION}/actions-runner-linux-x64-${GITHUB_RUNNER_VERSION}.tar.gz | tar xz
+RUN cp -r /Users/avastancu/actions-runner /github-runner
+RUN cd /github-runner/actions-runner
 RUN sudo ./bin/installdependencies.sh
-
-ENV PATH="${PATH}:/home/github-runner/scripts"
