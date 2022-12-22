@@ -32,11 +32,11 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - \
 RUN apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /github-runner
-
 # Install everything needed for the GitHub Action self-hosted-runner
 RUN cd ../bin/
 RUN ./installdependencies.sh
+
+WORKDIR /github-runner
 
 RUN adduser --uid 1000 --gecos "GitHub Runner" --disabled-password github-runner && \
   echo 'github-runner ALL=(ALL) NOPASSWD:ALL' | sudo EDITOR='tee -a' visudo
