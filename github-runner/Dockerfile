@@ -39,6 +39,5 @@ USER 1000
 WORKDIR /github-runner
 
 # Install everything needed for the GitHub Action self-hosted-runner
-RUN cp -r /Users/avastancu/actions-runner /github-runner
 RUN cd ../bin/
 RUN sudo ./installdependencies.sh
