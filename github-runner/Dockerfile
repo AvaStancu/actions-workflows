@@ -45,7 +45,4 @@ WORKDIR /home/github-runner
 RUN curl -Ls https://github.com/actions/runner/releases/download/v${GITHUB_RUNNER_VERSION}/actions-runner-linux-x64-${GITHUB_RUNNER_VERSION}.tar.gz | tar xz
 RUN sudo ./bin/installdependencies.sh
 
-COPY ./scripts/*.sh /home/github-runner/scripts/
-RUN sudo chmod +x /home/github-runner/scripts/*.sh
-
 ENV PATH="${PATH}:/home/github-runner/scripts"
