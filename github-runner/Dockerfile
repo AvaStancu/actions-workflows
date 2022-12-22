@@ -34,7 +34,7 @@ RUN apt-get clean \
   
 WORKDIR /github-runner
   
-COPY actions-runner /github-runner/actions-runner/
+ADD actions-runner /github-runner/actions-runner/
 
 # Install everything needed for the GitHub Action self-hosted-runner
 RUN cd /github-runner/actions-runner/bin/
