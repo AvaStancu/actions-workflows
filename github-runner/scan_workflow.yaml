@@ -1,0 +1,26 @@
+name: github-runner-pull-request
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "github-runner/**"
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker build
+        run: docker build github-runner -t github-runner-pull-request:${{ github.sha }}
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: github-runner-pull-request:${{ github.sha }}
+          format: "table"
+          exit-code: "1"
+          ignore-unfixed: true # Ignore unfixable
+          vuln-type: "os,library"
+          severity: "CRITICAL,HIGH"
