@@ -31,9 +31,13 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - \
   && sudo apt-get install -y nodejs
 RUN apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+  
+WORKDIR /github-runner
+  
+COPY actions-runner /github-runner/actions-runner
 
 # Install everything needed for the GitHub Action self-hosted-runner
-RUN cd ../bin/
+RUN cd /github-runner/actions-runner/bin/
 RUN ./installdependencies.sh
 
 WORKDIR /github-runner
