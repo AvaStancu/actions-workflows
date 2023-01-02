@@ -22,7 +22,6 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v1
-      - uses: AvaStancu/actions-workflows@v1
       - name: Cert manager setup
         run: |
           kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/cert-manager.yaml
