@@ -1,4 +1,4 @@
-name: CI-ARC
+name: CI-ARC-E2E-TEST
 
 on:
   workflow_dispatch:
