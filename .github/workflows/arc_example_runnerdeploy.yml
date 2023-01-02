@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   
 jobs:
-  setup-job:
+  setup-kind:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v1
@@ -17,6 +17,12 @@ jobs:
       - name: Create Kind cluster
         run: |
           PATH=$(go env GOPATH)/bin:$PATH kind create cluster --name e2e-test
+  setup-arc:
+    needs: setup-kind
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: AvaStancu/actions-workflows@v1
       - name: Cert manager setup
         run: |
           kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/cert-manager.yaml
@@ -26,11 +32,11 @@ jobs:
       - name: Create release
         run: kubectl create -f release/actions-runner-controller.yaml
       - name: Create secret generic controller-manager
-        run: kubectl create secret generic controller-manager -n actions-runner-system --from-literal=github_token=${secrets.GITHUB_TOKEN}
+        run: kubectl create secret generic controller-manager -n actions-runner-system --from-literal=github_token=${secrets.PERMISSION_TOKEN}
       - name: Create deployment
         run: kubectl apply -f runnerdeployment.yaml
   self-hosted-runner-job:
-    needs: setup-job
+    needs: setup-arc
     strategy:
       fail-fast: false
       matrix:
