@@ -1,7 +1,6 @@
-name: formatedtade
+name: formated_date
 on:
   workflow_dispatch:
-  push:
 jobs:
   bypassdateparse:
     runs-on: ubuntu-latest
