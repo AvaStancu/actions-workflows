@@ -26,8 +26,7 @@ jobs:
       - name: Create release
         run: kubectl create -f release/actions-runner-controller.yaml
       - name: Create secret generic controller-manager
-        run: kubectl create secret generic controller-manager -n actions-runner-system \
-	     --from-literal=github_token=${secrets.GITHUB_TOKEN}
+        run: kubectl create secret generic controller-manager -n actions-runner-system --from-literal=github_token=${secrets.GITHUB_TOKEN}
       - name: Create deployment
         run: kubectl apply -f runnerdeployment.yaml
   self-hosted-runner-job:
