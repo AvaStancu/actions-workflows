@@ -13,10 +13,12 @@ jobs:
           go-version: 1.13
       - name: Install latest version of Kind
         run: |
-          GO111MODULE=on go get sigs.k8s.io/kind
+          GO111MODULE=on
+          go get sigs.k8s.io/kind
       - name: Create Kind cluster
         run: |
-          PATH=$(go env GOPATH)/bin:$PATH kind create cluster --name e2e-test
+          PATH=$(go env GOPATH)/bin:$PATH
+          kind create cluster --name e2e-test
   setup-arc:
     needs: setup-kind
     runs-on: [ubuntu-latest]
