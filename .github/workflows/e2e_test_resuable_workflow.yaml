@@ -1,6 +1,6 @@
 name: ARC-REUSABLE-WORKFLOW
 on:
-  workflow_call:
+  workflow_dispatch:
 jobs:
   arc-runner-job:
     strategy:
