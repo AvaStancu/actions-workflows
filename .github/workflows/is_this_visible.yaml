@@ -1,0 +1,16 @@
+name: IS-THIS-VISIBLE
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  test-self-hosted-runner-job:
+    strategy:
+      fail-fast: false
+      matrix:
+        job: [1, 2, 3]
+    runs-on: auto-srs
+    steps:
+      - run: |
+         printenv|sort
+         # echo "Hello World!" >> $GITHUB_STEP_SUMMARY
