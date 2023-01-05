@@ -1,0 +1,6 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: EphemeralRunnerSet
+metadata:
+  name: ephemeralrunnerset-sample
+spec:
+  # TODO(user): Add fields here

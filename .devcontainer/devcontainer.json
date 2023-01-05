@@ -1,0 +1,38 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+{
+  "name": "Actions Runner Controller Devcontainer",
+  "image": "mcr.microsoft.com/devcontainers/base:focal",
+  "features": {
+    // https://containers.dev/features
+    "ghcr.io/devcontainers/features/docker-in-docker:1": {},
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+      "version": "latest"
+        },
+    "ghcr.io/rio/features/kustomize:1": {
+            "version": "latest"
+        },
+    "ghcr.io/rio/features/k9s:1": {
+            "version": "latest"
+        },
+    "ghcr.io/devcontainers-contrib/features/kubectx-kubens:1": {
+            "version": "latest"
+    },
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens"
+      ]
+    }
+  },
+  // start minikube so kubectl is ready to go
+  "onCreateCommand": "minikube start",
+  "remoteUser": "vscode"
+}

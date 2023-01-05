@@ -1,0 +1,9 @@
+# kubectl patch ephemeralrunnerset
+#   -n actions-runner-system
+#   --patch-file arc-test/ephemeralRunnerSet_patch.yaml
+#   --type=merge
+#   example-ephemeral-runner-replica-set 
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: EphemeralRunnerSet
+spec:
+  replicas: 0

@@ -1,0 +1,83 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: actions-runner-system
+  name: example-auto-scale-runner-set-k8s-runner-role
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "create", "delete"]
+- apiGroups: [""]
+  resources: ["pods/exec"]
+  verbs: ["get", "create"]
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get", "list", "watch",]
+- apiGroups: ["batch"]
+  resources: ["jobs"]
+  verbs: ["get", "list", "create", "delete"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "create", "delete"]
+
+--- 
+apiVersion: v1
+kind: ServiceAccount
+
+metadata:
+  name: example-auto-scale-runner-set-k8s-service-account
+  namespace: actions-runner-system
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: example-auto-scale-runner-set-k8s-binding
+  namespace: actions-runner-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: example-auto-scale-runner-set-k8s-runner-role
+subjects:
+- kind: ServiceAccount
+  name: example-auto-scale-runner-set-k8s-service-account
+  namespace: actions-runner-system
+---
+
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: AutoscalingRunnerSet
+metadata:
+  name: example-auto-scale-runner-set-k8s
+  namespace: actions-runner-system
+spec:
+  githubConfigUrl: https://github.com/bbq-beets/ting-test
+  githubConfigSecret: controller-manager
+  maxRunners: 10
+  template:
+    spec:
+      volumes:
+        - name: work
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes: [ "ReadWriteOnce" ]
+                storageClassName: "local-path"  # This is dynamic provisioned via https://github.com/rancher/local-path-provisioner
+                resources:
+                  requests:
+                    storage: 1Gi
+      serviceAccountName: example-auto-scale-runner-set-k8s-service-account
+      containers:
+        - name: runner
+          image: huangtingluo/jit-runner-image:latest
+          env:
+            - name: ACTIONS_RUNNER_CONTAINER_HOOKS
+              value: /actions-runner/k8s/index.js
+            - name: ACTIONS_RUNNER_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+              value: "true"
+          volumeMounts:
+            - name: work
+              mountPath: /actions-runner/_work

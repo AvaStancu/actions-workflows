@@ -1,0 +1,52 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: AutoscalingRunnerSet
+metadata:
+  name: example-auto-scale-runner-set-dind
+  namespace: actions-runner-system
+spec:
+  githubConfigUrl: https://github.com/bbq-beets/ting-test
+  githubConfigSecret: controller-manager
+  maxRunners: 10
+  template:
+    spec:
+      volumes:
+        - name: internal--dind--volume
+          emptyDir: {}
+        - name: runner--working--directory--internal
+          emptyDir: {}
+        - name: runner--externals--directory--internal
+          emptyDir: {}
+      initContainers:
+        - name: init-volume
+          image: huangtingluo/jit-runner-image:latest
+          command: ["cp", "-r", "-v", "/actions-runner/externals/.", "/actions-runner/tmpDir/"]
+          volumeMounts:
+            - mountPath: /actions-runner/tmpDir
+              name: runner--externals--directory--internal
+      containers:
+        - name: runner
+          image: huangtingluo/jit-runner-image:latest
+          env:
+            - name: DOCKER_HOST
+              value: tcp://localhost:2376
+            - name: DOCKER_TLS_VERIFY
+              value: "1"
+            - name: DOCKER_CERT_PATH
+              value: /certs/client
+          volumeMounts:
+            - mountPath: /actions-runner/_work
+              name: runner--working--directory--internal
+            - mountPath: /certs/client
+              name: internal--dind--volume
+              readOnly: true
+        - name: dind
+          image: docker:dind
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /certs/client
+              name: internal--dind--volume
+            - mountPath: /actions-runner/_work
+              name: runner--working--directory--internal
+            - mountPath: /actions-runner/externals
+              name: runner--externals--directory--internal

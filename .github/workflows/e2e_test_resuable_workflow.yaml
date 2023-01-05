@@ -1,0 +1,14 @@
+name: ARC-REUSABLE-WORKFLOW
+on:
+  workflow_call:
+jobs:
+  arc-runner-job:
+    strategy:
+      fail-fast: false
+      matrix:
+        job: [1, 2, 3]
+    runs-on: auto-srs
+    steps:
+      - run: |
+         printenv|sort
+         # echo "Hello World!" >> $GITHUB_STEP_SUMMARY

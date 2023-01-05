@@ -1,0 +1,12 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: EphemeralRunner
+metadata:
+  name: example-ephemeral-runner
+  namespace: actions-runner-system
+spec:
+  organization: bbq-beets
+  repository: ting-test
+  runnerScaleSet: example-runnerdeploy
+  containers:
+    - name: runner
+      image: huangtingluo/jit-runner-image:latest

@@ -1,0 +1,15 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: EphemeralRunnerSet
+metadata:
+  name: example-ephemeral-runner-replica-set
+  namespace: actions-runner-system
+spec:
+  replicas: 1
+  runnerConfig:
+    organization: bbq-beets
+    repository: arc-test
+    runnerScaleSet: arc-test-runner
+  runnerPodSpec:
+    containers:
+      - name: runner
+        image: huangtingluo/jit-runner-image:latest

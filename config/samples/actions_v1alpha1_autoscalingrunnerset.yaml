@@ -1,0 +1,9 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: AutoscalingRunnerSet
+metadata:
+  name: autoscalingrunnerset-sample
+  namespace: actions-runner-system
+spec:
+  githubRunnerOrg: "bbq-beets"
+  githubRunnerRepository: "arc-test"
+  githubRunnerScaleSet: "arc-test-runner"
