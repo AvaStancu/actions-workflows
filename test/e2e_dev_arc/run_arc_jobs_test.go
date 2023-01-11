@@ -1,21 +1,24 @@
 package e2e_dev_arc
 
-import ("flag", "testing")
+import (
+	"flag"
+	"testing"
 
-import  "golang.org/x/exp/slices"
+	"golang.org/x/exp/slices"
+)
 
+func TestARCJobs(t *testing.T) {
+	availablePods := flag.String("pods", "", "Should receive the output of a kubectl get pods command.")
+	flag.Parse()
 
-func TestARCJobs(t *testing.T){
-    availablePods := flag.String("pods")
-    flag.Parse()
+	expectedPods := []string{"listener", "runner", "controller-manager"}
 
-    expectedPods = []string{"listener", "runner", "controller-manager"}
-
-    t.Run("Get available pods after job run", func(t *testing.T) {
-      for _, podName in range := expectedPods {
-          if !slices.Contains(*availablePods, podName) {
-              t.Fatalf("%v pod not found.", podName)
-            }
-        }
-    }
+	t.Run("Get available pods after job run", func(t *testing.T) {
+		for _, podName := range expectedPods {
+			if !slices.Contains(*availablePods, podName) {
+				t.Fatalf("%v pod not found.", podName)
+			}
+		}
+	},
+	)
 }
