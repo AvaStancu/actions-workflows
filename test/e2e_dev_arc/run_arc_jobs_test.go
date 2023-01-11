@@ -1,3 +1,5 @@
+package e2e_dev_arc
+
 import ("flag", "testing")
 
 import  "golang.org/x/exp/slices"
