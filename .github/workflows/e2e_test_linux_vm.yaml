@@ -44,10 +44,10 @@ jobs:
         id: available_pods_id
         run: |
           sleep 1m
-          echo "AVAILABLE_PODS<<EOF' >> $GITHUB_OUTPUT
+          echo 'AVAILABLE_PODS<<EOF' >> $GITHUB_OUTPUT
           echo $(kubectl get po -n actions-runner-system)  >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
-          echo ${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}"
+          echo ${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}
       - name: Check expected pods available
-        run: go test e2e_dev_arc run_arc_jobs_test.go --pods ${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}"
+        run: go test e2e_dev_arc run_arc_jobs_test.go --pods ${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}
