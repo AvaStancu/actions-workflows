@@ -44,8 +44,9 @@ jobs:
         id: available_pods_id
         run: |
           sleep 1m
-          echo "AVAILABLE_PODS=$(kubectl get po -n actions-runner-system)" >> $GITHUB_OUTPUT
-          echo "Do we have an output?"
+          echo "AVAILABLE_PODS<<EOF' >> $GITHUB_OUTPUT
+          echo $(kubectl get po -n actions-runner-system)  >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_ENV
           echo $GITHUB_OUTPUT
           echo ${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}"
       - name: Check expected pods available
