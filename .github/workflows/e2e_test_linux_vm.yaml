@@ -37,17 +37,7 @@ jobs:
         run:  kubectl create secret generic controller-manager -n actions-runner-system --from-literal=github_token=${{ secrets.PERMISSION_TOKEN }}
       - name: Create deployment
         run: kubectl apply -f arc-test/autoScaleRunnerSet.yaml
-      - name: RUN child workflow using ASRS
+      - name: Test ARC scales pods up and down
         run: |
-          curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/AvaStancu/actions-workflows/actions/workflows/44661067/dispatches -d '{"ref":"main"}'
-      - name: Get pods available
-        id: available_pods_id
-        run: |
-          sleep 1m
-          echo 'AVAILABLE_PODS<<EOF' >> $GITHUB_OUTPUT
-          echo $(kubectl get po -n actions-runner-system)  >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
-          echo $GITHUB_OUTPUT
-          echo ${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}
-      - name: Check expected pods available
-        run: go test ./test/e2e_dev_arc -args -pods "${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}"
+          export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          go test ./test/e2e_dev_arc -v
