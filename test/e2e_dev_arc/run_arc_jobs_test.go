@@ -98,6 +98,7 @@ func TestARCJobs(t *testing.T) {
 			t.Fatal(err)
 		}
 		ght := os.Getenv("GITHUB_TOKEN")
+		fmt.Printf("GITHUB TOKEN %v \n", len(ght))
 		req.Header.Add("Accept", "application/vnd.github+json")
 		req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", ght))
 		req.Header.Add("X-GitHub-Api-Version", "2022-11-28")
@@ -106,6 +107,7 @@ func TestARCJobs(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
+		fmt.Printf("STATUS CODE %v \n", resp.StatusCode)
 		defer resp.Body.Close()
 
 		expectedPodsCount := podCountsByType{1, 1, 3}
