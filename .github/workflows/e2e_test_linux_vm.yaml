@@ -50,4 +50,4 @@ jobs:
           echo $GITHUB_OUTPUT
           echo ${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}
       - name: Check expected pods available
-        run: go test ./test/e2e_dev_arc -args -pods ${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}
+        run: go test ./test/e2e_dev_arc -args -pods "${{ steps.available_pods_id.outputs.AVAILABLE_PODS }}"
