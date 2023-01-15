@@ -8,8 +8,9 @@ import (
 	"strings"
 )
 
+var availablePods = flag.String("pods", "", "Should receive the output of a kubectl get pods command.")
+
 func TestARCJobs(t *testing.T) {
-	availablePods := flag.String("pods", "", "Should receive the output of a kubectl get pods command.")
 	flag.Parse()
 
 	expectedPods := []string{"listener", "runner", "controller-manager"}
