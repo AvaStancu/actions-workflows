@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"golang.org/x/exp/slices"
+	"strings"
 )
 
 func TestARCJobs(t *testing.T) {
@@ -17,7 +17,7 @@ func TestARCJobs(t *testing.T) {
 	t.Run("Get available pods after job run", func(t *testing.T) {
 		fmt.Printf("Here we go")
 		for _, podName := range expectedPods {
-			if !slices.Contains(*availablePods, podName) {
+			if !strings.Contains(*availablePods, podName) {
 				t.Fatalf("%v pod not found.", podName)
 			}
 		}
