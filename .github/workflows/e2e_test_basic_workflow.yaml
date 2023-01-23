@@ -1,4 +1,4 @@
-name: ARC-REUSABLE-WORKFLOW
+name: ARC-SIMPLE-WORKFLOW
 on:
   workflow_dispatch:
 jobs:
