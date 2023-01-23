@@ -1,0 +1,12 @@
+name: ARC-REUSABLE-WORKFLOW
+on:
+  workflow_dispatch:
+jobs:
+  arc-runner-job:
+    strategy:
+      fail-fast: false
+      matrix:
+        job: [1, 2, 3]
+    runs-on: arc-runner-set
+    steps:
+      - run: echo "Hello World!" >> $GITHUB_STEP_SUMMARY
