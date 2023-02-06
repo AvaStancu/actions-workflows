@@ -37,4 +37,4 @@ jobs:
       - name: Test ARC scales pods up and down
         run: |
           export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
-          go test ./test/e2e_dev_arc -v
+          go test ./test/e2e_arc -v
