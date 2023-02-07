@@ -26,21 +26,28 @@ type podCountsByType struct {
 }
 
 func getPodsByType(clientset *kubernetes.Clientset) podCountsByType {
-	namespace := "actions-runner-system"
-	availablePods, err := clientset.CoreV1().Pods(namespace).List(context.TODO(), metav1.ListOptions{})
+	arc_namespace := "arc-systems"
+	availableArcPods, err := clientset.CoreV1().Pods(arc_namespace).List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		panic(err.Error())
+	}
+	runners_namespace := "arc-runners"
+	availableRunnerPods, err := clientset.CoreV1().Pods(runners_namespace).List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		panic(err.Error())
 	}
 	podsByType := podCountsByType{}
-	for _, pod := range availablePods.Items {
-		if strings.Contains(pod.Name, "runner") {
-			podsByType.runners += 1
-		}
-		if strings.Contains(pod.Name, "controller-manager") {
+	for _, pod := range availableArcPods.Items {
+		if strings.Contains(pod.Name, "-controller-") {
 			podsByType.controllers += 1
 		}
 		if strings.Contains(pod.Name, "listener") {
 			podsByType.listeners += 1
+		}
+	}
+	for _, pod := range availableRunnerPods.Items {
+		if strings.Contains(pod.Name, "runner") {
+			podsByType.runners += 1
 		}
 	}
 	return podsByType
@@ -91,14 +98,13 @@ func TestARCJobs(t *testing.T) {
 	t.Run("Get available pods during job run", func(t *testing.T) {
 		c := http.Client{}
 		url := "https://api.github.com/repos/AvaStancu/actions-workflows/actions/workflows/47589025/dispatches"
-		var jsonStr = []byte(`{"ref":"main"}`)
+		var jsonStr = []byte(`{"ref":"master"}`)
 
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 		if err != nil {
 			t.Fatal(err)
 		}
 		ght := os.Getenv("GITHUB_TOKEN")
-		fmt.Printf("GITHUB TOKEN %v \n", len(ght))
 		req.Header.Add("Accept", "application/vnd.github+json")
 		req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", ght))
 		req.Header.Add("X-GitHub-Api-Version", "2022-11-28")
@@ -107,7 +113,6 @@ func TestARCJobs(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		fmt.Printf("STATUS CODE %v \n", resp.StatusCode)
 		defer resp.Body.Close()
 
 		expectedPodsCount := podCountsByType{1, 1, 3}
