@@ -81,7 +81,7 @@ func TestARCJobs(t *testing.T) {
 	}
 
 	t.Run("Get available pods before job run", func(t *testing.T) {
-		expectedPodsCount := podCountsByType{1, 1, 1}
+		expectedPodsCount := podCountsByType{1, 1, 0}
 		success := pollForClusterState(clientset, expectedPodsCount, 120)
 		if !success {
 			t.Fatal("Expected pods count did not match available pods count before job run.")
@@ -90,7 +90,7 @@ func TestARCJobs(t *testing.T) {
 	)
 	t.Run("Get available pods during job run", func(t *testing.T) {
 		c := http.Client{}
-		url := "https://api.github.com/repos/AvaStancu/actions-workflows/actions/workflows/44661067/dispatches"
+		url := "https://api.github.com/repos/AvaStancu/actions-workflows/actions/workflows/47589025/dispatches"
 		var jsonStr = []byte(`{"ref":"main"}`)
 
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
@@ -119,7 +119,7 @@ func TestARCJobs(t *testing.T) {
 	},
 	)
 	t.Run("Get available pods after job run", func(t *testing.T) {
-		expectedPodsCount := podCountsByType{1, 1, 1}
+		expectedPodsCount := podCountsByType{1, 1, 0}
 		success := pollForClusterState(clientset, expectedPodsCount, 120)
 		if !success {
 			t.Fatal("Expected pods count did not match available pods count after job run.")
