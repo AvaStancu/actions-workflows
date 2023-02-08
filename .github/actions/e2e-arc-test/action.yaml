@@ -21,11 +21,11 @@ runs:
           --namespace "arc-runners" \
           --create-namespace \
           --set githubConfigUrl="https://github.com/AvaStancu/actions-workflows" \
-          --set githubConfigSecret.github_token="${{ secrets.GITHUB_TOKEN }}" \
+          --set githubConfigSecret.github_token="${{ github.token }}" \
           oci://ghcr.io/actions/actions-runner-controller-charts/auto-scaling-runner-set --version 0.1.0
       shell: bash
     - name: Test ARC scales pods up and down
       run: |
-          export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          export GITHUB_TOKEN="${{ github.token }}"
           go test ./test/e2e_arc -v
       shell: bash
