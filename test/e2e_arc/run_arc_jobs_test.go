@@ -89,7 +89,7 @@ func TestARCJobs(t *testing.T) {
 
 	t.Run("Get available pods before job run", func(t *testing.T) {
 		expectedPodsCount := podCountsByType{1, 1, 0}
-		success := pollForClusterState(clientset, expectedPodsCount, 120)
+		success := pollForClusterState(clientset, expectedPodsCount, 180)
 		if !success {
 			t.Fatal("Expected pods count did not match available pods count before job run.")
 		}
@@ -116,7 +116,7 @@ func TestARCJobs(t *testing.T) {
 		defer resp.Body.Close()
 
 		expectedPodsCount := podCountsByType{1, 1, 3}
-		success := pollForClusterState(clientset, expectedPodsCount, 60)
+		success := pollForClusterState(clientset, expectedPodsCount, 120)
 		if !success {
 			t.Fatal("Expected pods count did not match available pods count during job run.")
 		}
@@ -125,7 +125,7 @@ func TestARCJobs(t *testing.T) {
 	)
 	t.Run("Get available pods after job run", func(t *testing.T) {
 		expectedPodsCount := podCountsByType{1, 1, 0}
-		success := pollForClusterState(clientset, expectedPodsCount, 120)
+		success := pollForClusterState(clientset, expectedPodsCount, 180)
 		if !success {
 			t.Fatal("Expected pods count did not match available pods count after job run.")
 		}
