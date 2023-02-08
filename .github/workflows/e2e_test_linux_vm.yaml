@@ -23,6 +23,6 @@ jobs:
       - name: kKt
         run: |
           kubectl get pods -A
-          kubectl describe pods
+          kubectl describe pods -A
       - name: Delete Kind cluster
         run: kind delete cluster --name e2e-test
