@@ -89,9 +89,9 @@ func TestARCJobs(t *testing.T) {
 
 	t.Run("Get available pods before job run", func(t *testing.T) {
 		ght := os.Getenv("GITHUB_TOKEN")
-		fmt.Printf("TOKEN: %s \n", gth)
+		fmt.Printf("TOKEN: %s \n", ght)
 		expectedPodsCount := podCountsByType{1, 1, 0}
-		success := pollForClusterState(clientset, expectedPodsCount, 120)
+		success := pollForClusterState(clientset, expectedPodsCount, 60)
 		if !success {
 			t.Fatal("Expected pods count did not match available pods count before job run.")
 		}
