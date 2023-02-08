@@ -20,5 +20,9 @@ jobs:
       - uses: ./.github/actions/e2e-arc-test
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: kKt
+        run: |
+          kubectl get pods -A
+          kubectl describe pods
       - name: Delete Kind cluster
         run: kind delete cluster --name e2e-test
