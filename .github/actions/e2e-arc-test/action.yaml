@@ -27,7 +27,9 @@ runs:
           --create-namespace \
           --set githubConfigUrl="https://github.com/AvaStancu/actions-workflows" \
           --set githubConfigSecret.github_token="${{ inputs.github-token }}" \
-          oci://ghcr.io/actions/actions-runner-controller-charts/auto-scaling-runner-set --version 0.1.0
+          oci://ghcr.io/actions/actions-runner-controller-charts/auto-scaling-runner-set --version 0.1.0 \
+          --debug
+          kubectl get pods -A
       shell: bash
     - name: Test ARC scales pods up and down
       run: |
