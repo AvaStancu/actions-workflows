@@ -1,6 +1,11 @@
 name: 'e2e ARC test'
 description: 'Includes common arc installation, setup and test file run'
 
+inputs:
+  github-token:
+    description: 'A Github PAT'
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -21,11 +26,11 @@ runs:
           --namespace "arc-runners" \
           --create-namespace \
           --set githubConfigUrl="https://github.com/AvaStancu/actions-workflows" \
-          --set githubConfigSecret.github_token="${{ github.token }}" \
+          --set githubConfigSecret.github_token="${{ inputs.github-token }}" \
           oci://ghcr.io/actions/actions-runner-controller-charts/auto-scaling-runner-set --version 0.1.0
       shell: bash
     - name: Test ARC scales pods up and down
       run: |
-          export GITHUB_TOKEN="${{ github.token }}"
+          export GITHUB_TOKEN="${{ inputs.github-token }}"
           go test ./test/e2e_arc -v
       shell: bash
