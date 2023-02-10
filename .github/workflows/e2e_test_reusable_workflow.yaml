@@ -7,6 +7,6 @@ jobs:
       fail-fast: false
       matrix:
         job: [1, 2, 3]
-    runs-on: arc-runner-set
+    runs-on: arc-runner-setkbncmscleimi
     steps:
       - run: echo "Hello World!" >> $GITHUB_STEP_SUMMARY

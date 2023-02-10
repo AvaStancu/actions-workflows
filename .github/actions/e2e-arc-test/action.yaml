@@ -22,7 +22,7 @@ runs:
       shell: bash
     - name: Install runners
       run: |
-          helm install "arc-runner-set" \
+          helm install "arc-runner-setkbncmscleimi" \
           --namespace "arc-runners" \
           --create-namespace \
           --set githubConfigUrl="https://github.com/AvaStancu/actions-workflows" \
