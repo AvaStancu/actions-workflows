@@ -21,7 +21,7 @@ runs:
       run: helm install arc --namespace "arc-systems" --create-namespace oci://ghcr.io/actions/actions-runner-controller-charts/actions-runner-controller-2 --version 0.1.0
       shell: bash
     - name: Get datetime
-      run: echo "DATE_TIME=$(date +'%Y-%m-%dT%H-%M-%S-%3N')" >> $GITHUB_ENV
+      run: echo "DATE_TIME=$(date +'%Y-%m-%d-%H-%M-%S-%3N')" >> $GITHUB_ENV
       shell: bash
     - name: Install runners
       run: |
