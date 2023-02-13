@@ -102,7 +102,7 @@ func TestARCJobs(t *testing.T) {
 		c := http.Client{}
 		dateTime := os.Getenv("DATE_TIME")
 		url := "https://api.github.com/repos/AvaStancu/actions-workflows/actions/workflows/47589025/dispatches"
-		var jsonStr = []byte(fmt.Sprintf(`{"ref":"master", "inputs":{"date_ime":%s}}`, dateTime))
+		var jsonStr = []byte(fmt.Sprintf(`{"ref":"master", "inputs":{"date_time":%s}}`, dateTime))
 
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 		if err != nil {
