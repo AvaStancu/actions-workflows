@@ -101,6 +101,7 @@ func TestARCJobs(t *testing.T) {
 	t.Run("Get available pods during job run", func(t *testing.T) {
 		c := http.Client{}
 		dateTime := os.Getenv("DATE_TIME")
+		fmt.Println(dateTime)
 		url := "https://api.github.com/repos/AvaStancu/actions-workflows/actions/workflows/47589025/dispatches"
 		var jsonStr = []byte(fmt.Sprintf(`{"ref":"master", "inputs":{"date_time":%s}}`, dateTime))
 
@@ -114,6 +115,7 @@ func TestARCJobs(t *testing.T) {
 		req.Header.Add("X-GitHub-Api-Version", "2022-11-28")
 
 		resp, err := c.Do(req)
+		fmt.Println(resp.StatusCode)
 		if err != nil {
 			t.Fatal(err)
 		}
