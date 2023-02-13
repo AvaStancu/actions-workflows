@@ -5,6 +5,9 @@ inputs:
   github-token:
     description: 'A Github PAT'
     required: true
+  date_time:
+    description: 'A date time for the runner name'
+    required: false
 
 runs:
   using: "composite"
