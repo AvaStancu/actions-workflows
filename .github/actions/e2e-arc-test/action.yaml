@@ -20,9 +20,12 @@ runs:
     - name: Install ARC
       run: helm install arc --namespace "arc-systems" --create-namespace oci://ghcr.io/actions/actions-runner-controller-charts/actions-runner-controller-2 --version 0.1.0
       shell: bash
+    - name: Get datetime
+      run: echo "DATE_TIME=$(date +'%Y-%m-%dT%H:%M:%S:%3N')" >> $GITHUB_ENV
+      shell: bash
     - name: Install runners
       run: |
-          helm install "arc-runner-skieuhdjwlenj" \
+          helm install "arc-runner-${{ env.DATE_TIME }}" \
           --namespace "arc-runners" \
           --create-namespace \
           --set githubConfigUrl="https://github.com/AvaStancu/actions-workflows" \
@@ -34,5 +37,6 @@ runs:
     - name: Test ARC scales pods up and down
       run: |
           export GITHUB_TOKEN="${{ inputs.github-token }}"
+          export DATE_TIME="${{ env.DATE_TIME }}"
           go test ./test/e2e_arc -v
       shell: bash
