@@ -116,6 +116,7 @@ func TestARCJobs(t *testing.T) {
 
 		resp, err := c.Do(req)
 		fmt.Println(resp.StatusCode)
+		fmt.Println(resp.Body)
 		if err != nil {
 			t.Fatal(err)
 		}
