@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -116,7 +117,12 @@ func TestARCJobs(t *testing.T) {
 
 		resp, err := c.Do(req)
 		fmt.Println(resp.StatusCode)
-		fmt.Println(resp.Body)
+		bodyBytes, err := io.ReadAll(resp.Body)
+		if err != nil {
+			t.Fatal(err)
+		}
+		bodyString := string(bodyBytes)
+		fmt.Println(bodyString)
 		if err != nil {
 			t.Fatal(err)
 		}
