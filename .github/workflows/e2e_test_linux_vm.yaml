@@ -17,10 +17,16 @@ jobs:
         run: |
           PATH=$(go env GOPATH)/bin:$PATH
           kind create cluster --name e2e-test
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v1
+        with:
+          application_id: ${{ secrets.ARC_AVA_APP_ID }}
+          application_private_key: ${{ secrets.ARC_AVA_APP_PK }}
       - uses: ./.github/actions/e2e-arc-test
         with:
-          github-token: ${{ secrets.PERMISSION_TOKEN }}
-      - name: kKt
-        run: |
-          kubectl get pods -A
-          kubectl describe pods -A
+          github-token: ${{ steps.get_workflow_token.outputs.token }}
+      # - name: kKt
+      #   run: |
+      #     kubectl get pods -A
+      #     kubectl describe pods -A
