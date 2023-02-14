@@ -1,6 +1,10 @@
 name: ARC-REUSABLE-WORKFLOW
 on:
   workflow_dispatch:
+    inputs:
+      date_time:
+        description: 'Datetime for runner name uniqueness'
+        required: true
 jobs:
   arc-runner-job:
     strategy:
