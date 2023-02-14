@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -16,8 +15,6 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 )
-
-// var availablePods = flag.String("pods", "", "Should receive the output of a kubectl get pods command.")
 
 type podCountsByType struct {
 	controllers int
@@ -86,9 +83,6 @@ func TestARCJobs(t *testing.T) {
 	}
 
 	t.Run("Get available pods before job run", func(t *testing.T) {
-		ght := os.Getenv("GITHUB_TOKEN")
-		fmt.Printf("TOKEN: %s \n", ght)
-		fmt.Printf("TOKEN LEN: %d \n", len(ght))
 		expectedPodsCount := podCountsByType{1, 1, 0}
 		success := pollForClusterState(clientset, expectedPodsCount, 60)
 		if !success {
@@ -99,7 +93,6 @@ func TestARCJobs(t *testing.T) {
 	t.Run("Get available pods during job run", func(t *testing.T) {
 		c := http.Client{}
 		dateTime := os.Getenv("DATE_TIME")
-		fmt.Println(dateTime)
 		url := "https://api.github.com/repos/AvaStancu/actions-workflows/actions/workflows/47589025/dispatches"
 		var jsonStr = []byte(fmt.Sprintf(`{"ref":"master", "inputs":{"date_time":"%s"}}`, dateTime))
 
@@ -113,13 +106,6 @@ func TestARCJobs(t *testing.T) {
 		req.Header.Add("X-GitHub-Api-Version", "2022-11-28")
 
 		resp, err := c.Do(req)
-		fmt.Println(resp.StatusCode)
-		bodyBytes, err := io.ReadAll(resp.Body)
-		if err != nil {
-			t.Fatal(err)
-		}
-		bodyString := string(bodyBytes)
-		fmt.Println(bodyString)
 		if err != nil {
 			t.Fatal(err)
 		}

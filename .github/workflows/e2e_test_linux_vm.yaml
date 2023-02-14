@@ -26,7 +26,3 @@ jobs:
       - uses: ./.github/actions/e2e-arc-test
         with:
           github-token: ${{ steps.get_workflow_token.outputs.token }}
-      # - name: kKt
-      #   run: |
-      #     kubectl get pods -A
-      #     kubectl describe pods -A
