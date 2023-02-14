@@ -1,7 +1,6 @@
 package e2e_dev_arc
 
 import (
-	// "flag"
 	"bytes"
 	"context"
 	"fmt"
@@ -72,8 +71,6 @@ func pollForClusterState(clientset *kubernetes.Clientset, expectedPodsCount podC
 }
 
 func TestARCJobs(t *testing.T) {
-	// flag.Parse()
-
 	configFile := filepath.Join(
 		os.Getenv("HOME"), ".kube", "config",
 	)
@@ -88,17 +85,17 @@ func TestARCJobs(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// t.Run("Get available pods before job run", func(t *testing.T) {
-	// 	ght := os.Getenv("GITHUB_TOKEN")
-	// 	fmt.Printf("TOKEN: %s \n", ght)
-	// 	fmt.Printf("TOKEN LEN: %d \n", len(ght))
-	// 	expectedPodsCount := podCountsByType{1, 1, 0}
-	// 	success := pollForClusterState(clientset, expectedPodsCount, 60)
-	// 	if !success {
-	// 		t.Fatal("Expected pods count did not match available pods count before job run.")
-	// 	}
-	// },
-	// )
+	t.Run("Get available pods before job run", func(t *testing.T) {
+		ght := os.Getenv("GITHUB_TOKEN")
+		fmt.Printf("TOKEN: %s \n", ght)
+		fmt.Printf("TOKEN LEN: %d \n", len(ght))
+		expectedPodsCount := podCountsByType{1, 1, 0}
+		success := pollForClusterState(clientset, expectedPodsCount, 60)
+		if !success {
+			t.Fatal("Expected pods count did not match available pods count before job run.")
+		}
+	},
+	)
 	t.Run("Get available pods during job run", func(t *testing.T) {
 		c := http.Client{}
 		dateTime := os.Getenv("DATE_TIME")
@@ -129,19 +126,19 @@ func TestARCJobs(t *testing.T) {
 		defer resp.Body.Close()
 
 		expectedPodsCount := podCountsByType{1, 1, 3}
-		pollForClusterState(clientset, expectedPodsCount, 120)
-		// if !success {
-		// 	t.Fatal("Expected pods count did not match available pods count during job run.")
-		// }
+		success := pollForClusterState(clientset, expectedPodsCount, 120)
+		if !success {
+			t.Fatal("Expected pods count did not match available pods count during job run.")
+		}
 
 	},
 	)
-	// t.Run("Get available pods after job run", func(t *testing.T) {
-	// 	expectedPodsCount := podCountsByType{1, 1, 0}
-	// 	success := pollForClusterState(clientset, expectedPodsCount, 120)
-	// 	if !success {
-	// 		t.Fatal("Expected pods count did not match available pods count after job run.")
-	// 	}
-	// },
-	// )
+	t.Run("Get available pods after job run", func(t *testing.T) {
+		expectedPodsCount := podCountsByType{1, 1, 0}
+		success := pollForClusterState(clientset, expectedPodsCount, 120)
+		if !success {
+			t.Fatal("Expected pods count did not match available pods count after job run.")
+		}
+	},
+	)
 }
