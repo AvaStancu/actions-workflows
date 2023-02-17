@@ -18,7 +18,7 @@ runs:
     #     sudo apt-get install helm
     #   shell: bash
     - name: Install ARC
-      run: helm install arc --namespace "arc-systems" --create-namespace oci://ghcr.io/actions/actions-runner-controller-charts/actions-runner-controller-2 --version 0.1.0
+      run: helm install arc --namespace "arc-systems" --create-namespace oci://ghcr.io/actions/actions-runner-controller-charts/actions-runner-controller-2
       shell: bash
     - name: Get datetime
       run: echo "DATE_TIME=$(date +'%Y-%m-%d-%H-%M-%S-%3N')" >> $GITHUB_ENV
@@ -30,7 +30,7 @@ runs:
           --create-namespace \
           --set githubConfigUrl="https://github.com/AvaStancu/actions-workflows" \
           --set githubConfigSecret.github_token="${{ inputs.github-token }}" \
-          oci://ghcr.io/actions/actions-runner-controller-charts/auto-scaling-runner-set --version 0.1.0 \
+          oci://ghcr.io/actions/actions-runner-controller-charts/auto-scaling-runner-set \
           --debug
           kubectl get pods -A
       shell: bash
