@@ -14,7 +14,7 @@ jobs:
           kind create cluster --name e2e-test
       - name: Get SHA of commit that triggered the e2e workflow_dispatch
         id: commit-sha
-        run: echo git rev-parse "$GITHUB_SHA" >> $GITHUB_OUTPUT
+        run: echo $GITHUB_SHA
       - name: ${{ steps.commit-sha.outputs.stdout }}
         run: echo ${{ steps.commit-sha.outputs.stdout }} >> $GITHUB_STEP_SUMMARY
       - name: Docker Build Test Image
