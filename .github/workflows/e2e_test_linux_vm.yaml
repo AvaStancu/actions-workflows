@@ -14,11 +14,11 @@ jobs:
           kind create cluster --name e2e-test
       - name: Get SHA of commit that triggered the e2e workflow_dispatch
         id: commit-sha
-        run: echo git rev-parse "$GITHUB_SHA" >> $GITHUB_SHA
-      - name: Echo SHA
-        run: echo $GITHUB_SHA >> $GITHUB_STEP_SUMMARY
+        run: echo git rev-parse "$GITHUB_SHA" >> $GITHUB_OUTPUT
+      - name: ${{ steps.commit-sha.outputs.stdout }}
+        run: echo ${{ steps.commit-sha.outputs.stdout }} >> $GITHUB_STEP_SUMMARY
       - name: Docker Build Test Image
-        run: docker build --tag "0.0."$GITHUB_SHA
+        run: docker build --tag "0.0."${{ steps.commit-sha.outputs.stdout }}
       - name: Load Image to Kind Cluster
         run: kind load docker-image ${{ steps.version-tag.outputs.stdout }} --name ${{ inputs.kind-cluster }}
       - name: Get Token
