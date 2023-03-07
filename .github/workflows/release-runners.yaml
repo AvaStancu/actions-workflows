@@ -5,12 +5,13 @@ name: Runners
 on:
   # We must do a trigger on a push: instead of a types: closed so GitHub Secrets
   # are available to the workflow run
-  push:
-    branches:
-      - 'master'
-    paths:
-      - 'runner/VERSION'
-      - '.github/workflows/release-runners.yaml'
+  workflow_dispatch
+#   push:
+#     branches:
+#       - 'master'
+#     paths:
+#       - 'runner/VERSION'
+#       - '.github/workflows/release-runners.yaml'
 
 env:
   # Safeguard to prevent pushing images to registeries after build
