@@ -18,6 +18,8 @@ jobs:
       - name: Create Build TARGET_ORG
         id: version-tag
         run: join("0.0.", steps.commit-sha.outputs.stdout)
+      - name: Echo version tag
+        run: echo ${{ steps.version-tag.outputs.stdout }}
       - name: Docker Build Test Image
         run: docker buildx build --tag ${{ steps.version-tag.outputs.stdout }}
       - name: Load Image to Kind Cluster
