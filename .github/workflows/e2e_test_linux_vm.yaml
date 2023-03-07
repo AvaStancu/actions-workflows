@@ -17,13 +17,10 @@ jobs:
         run: git rev-parse --short "$GITHUB_SHA"
       - name: Echo version tag
         run: echo ${{ steps.commit-sha.outputs.stdout }} >> $GITHUB_STEP_SUMMARY
-      - name: Create Build Tag
-        id: version-tag
-        run: join("0.0.", ${{ steps.commit-sha.outputs.stdout }})
       - name: Echo version tag
-        run: echo ${{ steps.version-tag.outputs.stdout }} >> $GITHUB_STEP_SUMMARY
+        run: echo "0.0."${{ steps.version-tag.outputs.stdout }} >> $GITHUB_STEP_SUMMARY
       - name: Docker Build Test Image
-        run: docker buildx build --tag ${{ steps.version-tag.outputs.stdout }}
+        run: docker buildx build --tag "0.0."${{ steps.version-tag.outputs.stdout }}
       - name: Load Image to Kind Cluster
         run: kind load docker-image ${{ steps.version-tag.outputs.stdout }} --name ${{ inputs.kind-cluster }}
       - name: Get Token
