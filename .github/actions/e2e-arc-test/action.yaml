@@ -5,20 +5,15 @@ inputs:
   github-token:
     description: 'JWT generated with Github App inputs'
     required: true
+  docker-image-tag:
+    description: "Docker image version to be deployed for testing"
+    required: true
 
 runs:
   using: "composite"
   steps:
-    # - name: Helm installation
-    #   run: |
-    #     curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-    #     sudo apt-get install apt-transport-https --yes
-    #     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-    #     sudo apt-get update
-    #     sudo apt-get install helm
-    #   shell: bash
     - name: Install ARC
-      run: helm install arc --namespace "arc-systems" --create-namespace ./charts/actions-runner-controller-2
+      run: helm install arc --namespace "arc-systems" --create-namespace --set image.tag=${{ inputs.docker-image-tag }} ./charts/actions-runner-controller-2
       shell: bash
     - name: Get datetime
       run: echo "DATE_TIME=$(date +'%Y-%m-%d-%H-%M-%S-%3N')" >> $GITHUB_ENV

@@ -8,15 +8,20 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
-      # - uses: actions/setup-go@v3
-      #   with:
-      #     go-version: 1.18
-      # - name: Install latest version of Kind
-      #   run: go install sigs.k8s.io/kind@latest
       - name: Create Kind cluster
         run: |
           PATH=$(go env GOPATH)/bin:$PATH
           kind create cluster --name e2e-test
+      - name: Get SHA of commit that triggered the e2e workflow_dispatch
+        id: commit-sha
+        run: git rev-parse --short "$GITHUB_SHA"
+      - name: Create Build TARGET_ORG
+        id: version-tag
+        run: join("0.0.", steps.commit-sha.outputs.stdout)
+      - name: Docker Build Test Image
+        run: docker buildx build --tag ${{ steps.version-tag.outputs.stdout }}
+      - name: Load Image to Kind Cluster
+        run: kind load docker-image ${{ steps.version-tag.outputs.stdout }} --name ${{ inputs.kind-cluster }}
       - name: Get Token
         id: get_workflow_token
         uses: peter-murray/workflow-application-token-action@v1
