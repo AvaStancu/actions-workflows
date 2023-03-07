@@ -15,9 +15,11 @@ jobs:
       - name: Get SHA of commit that triggered the e2e workflow_dispatch
         id: commit-sha
         run: git rev-parse --short "$GITHUB_SHA"
-      - name: Create Build TARGET_ORG
+      - name: Echo version tag
+        run: echo ${{ steps.commit-sha.outputs.stdout }}
+      - name: Create Build Tag
         id: version-tag
-        run: join("0.0.", steps.commit-sha.outputs.stdout)
+        run: join("0.0.", ${{ steps.commit-sha.outputs.stdout }})
       - name: Echo version tag
         run: echo ${{ steps.version-tag.outputs.stdout }}
       - name: Docker Build Test Image
