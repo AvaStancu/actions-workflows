@@ -16,12 +16,12 @@ jobs:
         id: commit-sha
         run: git rev-parse --short "$GITHUB_SHA"
       - name: Echo version tag
-        run: echo ${{ steps.commit-sha.outputs.stdout }}
+        run: echo ${{ steps.commit-sha.outputs.stdout }} >> $GITHUB_STEP_SUMMARY
       - name: Create Build Tag
         id: version-tag
         run: join("0.0.", ${{ steps.commit-sha.outputs.stdout }})
       - name: Echo version tag
-        run: echo ${{ steps.version-tag.outputs.stdout }}
+        run: echo ${{ steps.version-tag.outputs.stdout }} >> $GITHUB_STEP_SUMMARY
       - name: Docker Build Test Image
         run: docker buildx build --tag ${{ steps.version-tag.outputs.stdout }}
       - name: Load Image to Kind Cluster
