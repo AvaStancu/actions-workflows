@@ -14,7 +14,7 @@ jobs:
           kind create cluster --name e2e-test
       - name: Get SHA of commit that triggered the e2e workflow_dispatch
         id: commit-sha
-        run: git rev-parse --short "$GITHUB_SHA"
+        run: echo git rev-parse --short "$GITHUB_SHA"
       - name: Echo version tag
         run: echo ${{ steps.commit-sha.outputs.stdout }} >> $GITHUB_STEP_SUMMARY
       - name: Echo version tag
