@@ -3,16 +3,16 @@ name: Publish Helm Chart
 # Revert to https://github.com/actions-runner-controller/releases#releases
 # for details on why we use this approach
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'charts/**'
-      - '.github/workflows/publish-chart.yaml'
-      - '!charts/actions-runner-controller/docs/**'
-      - '!charts/actions-runner-controller-2/**'
-      - '!charts/auto-scaling-runner-set/**'
-      - '!**.md'
+#   push:
+#     branches:
+#       - master
+#     paths:
+#       - 'charts/**'
+#       - '.github/workflows/publish-chart.yaml'
+#       - '!charts/actions-runner-controller/docs/**'
+#       - '!charts/actions-runner-controller-2/**'
+#       - '!charts/auto-scaling-runner-set/**'
+#       - '!**.md'
   workflow_dispatch:
 
 env:
