@@ -3,23 +3,24 @@ name: Publish Canary Image
 # Revert to https://github.com/actions-runner-controller/releases#releases
 # for details on why we use this approach
 on:
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - '**.md'
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/workflows/validate-chart.yaml'
-      - '.github/workflows/publish-chart.yaml'
-      - '.github/workflows/publish-arc.yaml'
-      - '.github/workflows/runners.yaml'
-      - '.github/workflows/validate-entrypoint.yaml'
-      - '.github/renovate.*'
-      - 'runner/**'
-      - '.gitignore'
-      - 'PROJECT'
-      - 'LICENSE'
-      - 'Makefile'
+    workflow_dispatch
+#   push:
+#     branches:
+#       - master
+#     paths-ignore:
+#       - '**.md'
+#       - '.github/ISSUE_TEMPLATE/**'
+#       - '.github/workflows/validate-chart.yaml'
+#       - '.github/workflows/publish-chart.yaml'
+#       - '.github/workflows/publish-arc.yaml'
+#       - '.github/workflows/runners.yaml'
+#       - '.github/workflows/validate-entrypoint.yaml'
+#       - '.github/renovate.*'
+#       - 'runner/**'
+#       - '.gitignore'
+#       - 'PROJECT'
+#       - 'LICENSE'
+#       - 'Makefile'
 
 env:
   # Safeguard to prevent pushing images to registeries after build
