@@ -16,9 +16,11 @@ jobs:
         run: |
             export VERSION="0.0."$GITHUB_SHA
             echo $VERSION
-            make docker-buildx
+            # make docker-buildx
       - name: Load Image to Kind Cluster
-        run: kind load docker-image ${{ steps.version-tag.outputs.stdout }} --name ${{ inputs.kind-cluster }}
+        run: |
+          echo $VERSION
+          kind load docker-image $VERSION --name e2e-test
       - name: Get Token
         id: get_workflow_token
         uses: peter-murray/workflow-application-token-action@v1
