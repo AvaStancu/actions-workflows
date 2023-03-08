@@ -16,7 +16,7 @@ jobs:
       - name: Add env variables
         run: |
             # echo "VERSION=$(echo "0.0."$GITHUB_SHA)" >> $GITHUB_ENV
-            VERSION=$(echo "0.0.$GITHUB_SHA)"
+            VERSION=$(echo "0.0.$GITHUB_SHA")
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "IMAGE_TAG=$(echo "test-image:"$VERSION)" >> $GITHUB_ENV
       - name: Docker Build Test Image
