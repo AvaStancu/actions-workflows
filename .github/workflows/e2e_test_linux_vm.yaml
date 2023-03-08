@@ -12,13 +12,13 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
-      - name: Create Kind cluster
-        run: |
-          PATH=$(go env GOPATH)/bin:$PATH
-          kind create cluster --name $CLUSTER_NAME
+      # - name: Create Kind cluster
+      #   run: |
+      #     PATH=$(go env GOPATH)/bin:$PATH
+      #     kind create cluster --name $CLUSTER_NAME
       - name: Docker Build Test Image
         run: |
-            echo $VERSION
+            echo ${{ env.VERSION }}
             # make docker-buildx
       - name: Load Image to Kind Cluster
         run: |
