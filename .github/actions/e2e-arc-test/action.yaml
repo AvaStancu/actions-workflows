@@ -27,6 +27,7 @@ runs:
           --set githubConfigSecret.github_token="${{ inputs.github-token }}" \
           ./charts/auto-scaling-runner-set \
           --debug
+          sleep 60
           kubectl get pods -A
           kubectl get pods -n "arc-runners" --output=jsonpath="{range .items[*]}{.metadata.name}{.metadata.labels}{'\n'}{end}"
       shell: bash
