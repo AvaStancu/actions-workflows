@@ -19,8 +19,7 @@ jobs:
       - name: Docker Build Test Image
         run: |
             echo "VERSION=$(echo "0.0."$GITHUB_SHA)" >> $GITHUB_ENV
-            echo $RUNNER_VERSION
-            docker build . -f Dockerfile --platform "linux/amd64,linux/arm64" --build-arg RUNNER_VERSION=$RUNNER_VERSION --build-arg VERSION=$VERSION -t "${VERSION}"
+            docker build . --platform "linux/amd64,linux/arm64" --build-arg RUNNER_VERSION=$RUNNER_VERSION --build-arg VERSION=$VERSION -t "test-image:"$VERSION
       - name: Load Image to Kind Cluster
         run: kind load docker-image $VERSION --name $CLUSTER_NAME
       - name: Get Token
@@ -32,4 +31,4 @@ jobs:
       - uses: ./.github/actions/e2e-arc-test
         with:
           github-token: ${{ steps.get_workflow_token.outputs.token }}
-          docker-image-tag: $VERSION
+          docker-image-tag: $(echo "test-image:"$VERSION)
