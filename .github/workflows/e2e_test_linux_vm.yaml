@@ -2,6 +2,9 @@ name: CI-ARC-E2E-TEST
 
 on:
   workflow_dispatch:
+
+env:
+  VERSION: "0.0."$GITHUB_SHA
   
 jobs:
   setup-steps:
@@ -14,7 +17,6 @@ jobs:
           kind create cluster --name e2e-test
       - name: Docker Build Test Image
         run: |
-            export VERSION="0.0."$GITHUB_SHA
             echo $VERSION
             # make docker-buildx
       - name: Load Image to Kind Cluster
