@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: "0.0."$GITHUB_SHA
+  CLUSTER_NAME: e2e-test
+  VERSION: echo "VERSION=$(echo "0.0."$GITHUB_SHA)" >> $GITHUB_ENV
   
 jobs:
   setup-steps:
@@ -14,7 +15,7 @@ jobs:
       - name: Create Kind cluster
         run: |
           PATH=$(go env GOPATH)/bin:$PATH
-          kind create cluster --name e2e-test
+          kind create cluster --name $CLUSTER_NAME
       - name: Docker Build Test Image
         run: |
             echo $VERSION
@@ -22,7 +23,7 @@ jobs:
       - name: Load Image to Kind Cluster
         run: |
           echo $VERSION
-          kind load docker-image $VERSION --name e2e-test
+          kind load docker-image $VERSION --name $CLUSTER_NAME
       - name: Get Token
         id: get_workflow_token
         uses: peter-murray/workflow-application-token-action@v1
@@ -32,3 +33,4 @@ jobs:
       - uses: ./.github/actions/e2e-arc-test
         with:
           github-token: ${{ steps.get_workflow_token.outputs.token }}
+          docker-image-tag: $VERSION
