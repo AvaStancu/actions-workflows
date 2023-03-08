@@ -22,13 +22,14 @@ jobs:
       - name: Docker Build Test Image
         run: |
             echo $IMAGE_TAG
-            docker build --build-arg TARGETPLATFORM="linux/amd64,linux/arm64" --build-arg RUNNER_VERSION=$RUNNER_VERSION --build-arg VERSION=$VERSION -t $IMAGE_TAG .
+            docker buildx build --build-arg TARGETPLATFORM="linux/amd64,linux/arm64" --build-arg RUNNER_VERSION=$RUNNER_VERSION --build-arg VERSION=$VERSION -t $IMAGE_TAG .
+            # IMG_RESULT=load make docker-buildx
       - name: Create Kind cluster
         run: |
           PATH=$(go env GOPATH)/bin:$PATH
           kind create cluster --name $CLUSTER_NAME
       - name: Load Image to Kind Cluster
-        run: kind load docker-image $VERSION --name $CLUSTER_NAME
+        run: kind load docker-image $IMAGE_TAG --name $CLUSTER_NAME
       - name: Get Token
         id: get_workflow_token
         uses: peter-murray/workflow-application-token-action@v1
