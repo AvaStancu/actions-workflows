@@ -5,20 +5,22 @@ on:
 
 env:
   CLUSTER_NAME: e2e-test
+  RUNNER_VERSION: 2.301.1
   
 jobs:
   setup-steps:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
-      # - name: Create Kind cluster
-      #   run: |
-      #     PATH=$(go env GOPATH)/bin:$PATH
-      #     kind create cluster --name $CLUSTER_NAME
+      - name: Create Kind cluster
+        run: |
+          PATH=$(go env GOPATH)/bin:$PATH
+          kind create cluster --name $CLUSTER_NAME
       - name: Docker Build Test Image
         run: |
             echo "VERSION=$(echo "0.0."$GITHUB_SHA)" >> $GITHUB_ENV
-            make docker-buildx
+            echo $RUNNER_VERSION
+            docker build . -f Dockerfile --platform "linux/amd64,linux/arm64" --build-arg RUNNER_VERSION=$RUNNER_VERSION --build-arg VERSION=$VERSION -t "${VERSION}"
       - name: Load Image to Kind Cluster
         run: kind load docker-image $VERSION --name $CLUSTER_NAME
       - name: Get Token
