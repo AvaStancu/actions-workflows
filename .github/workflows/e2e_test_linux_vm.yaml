@@ -22,7 +22,7 @@ jobs:
       - name: Docker Build Test Image
         run: |
             echo $IMAGE_TAG
-            docker buildx build --platform "linux/amd64,linux/arm64" --build-arg RUNNER_VERSION=$RUNNER_VERSION --build-arg VERSION=$VERSION -t $IMAGE_TAG .
+            docker build --build-arg TARGETPLATFORM="linux/amd64,linux/arm64" --build-arg RUNNER_VERSION=$RUNNER_VERSION --build-arg VERSION=$VERSION -t $IMAGE_TAG .
             # IMG_RESULT=load make docker-buildx
       - name: Create Kind cluster
         run: |
