@@ -20,6 +20,7 @@ jobs:
         run: |
             echo "VERSION=$(echo "0.0."$GITHUB_SHA)" >> $GITHUB_ENV
             echo "IMAGE-TAG=$(echo "test-image:"$VERSION)" >> $GITHUB_ENV
+            echo $IMAGE-TAG
             docker build . --platform "linux/amd64,linux/arm64" --build-arg RUNNER_VERSION=$RUNNER_VERSION --build-arg VERSION=$VERSION -t $IMAGE-TAG
       - name: Load Image to Kind Cluster
         run: kind load docker-image $VERSION --name $CLUSTER_NAME
