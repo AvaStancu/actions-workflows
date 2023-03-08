@@ -6,7 +6,7 @@ inputs:
     description: 'JWT generated with Github App inputs'
     required: true
   docker-image-tag:
-    description: "Docker image version to be deployed for testing"
+    description: "Tag of ARC Docker image to be deployed for testing"
     required: true
 
 runs:
@@ -28,6 +28,7 @@ runs:
           ./charts/auto-scaling-runner-set \
           --debug
           kubectl get pods -A
+          kubectl get pods -n "arc-runners" --output=jsonpath="{range .items[*]}{.metadata.name}{.metadata.labels}{'\n'}{end}"
       shell: bash
     - name: Test ARC scales pods up and down
       run: |
