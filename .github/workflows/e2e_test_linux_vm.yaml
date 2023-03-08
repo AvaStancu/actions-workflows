@@ -16,10 +16,12 @@ jobs:
         run: |
           PATH=$(go env GOPATH)/bin:$PATH
           kind create cluster --name $CLUSTER_NAME
-      - name: Docker Build Test Image
+      - name: Add env variables
         run: |
             echo "VERSION=$(echo "0.0."$GITHUB_SHA)" >> $GITHUB_ENV
             echo "IMAGE_TAG=$(echo "test-image:"$VERSION)" >> $GITHUB_ENV
+      - name: Docker Build Test Image
+        run: |
             echo $IMAGE_TAG
             docker build . --platform "linux/amd64,linux/arm64" --build-arg RUNNER_VERSION=$RUNNER_VERSION --build-arg VERSION=$VERSION -t $IMAGE_TAG
       - name: Load Image to Kind Cluster
