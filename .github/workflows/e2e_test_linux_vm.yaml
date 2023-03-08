@@ -18,12 +18,9 @@ jobs:
       - name: Docker Build Test Image
         run: |
             echo "VERSION=$(echo "0.0."$GITHUB_SHA)" >> $GITHUB_ENV
-            echo ${{ env.VERSION }}
-            # make docker-buildx
+            make docker-buildx
       - name: Load Image to Kind Cluster
-        run: |
-          echo $VERSION
-          kind load docker-image $VERSION --name $CLUSTER_NAME
+        run: kind load docker-image $VERSION --name $CLUSTER_NAME
       - name: Get Token
         id: get_workflow_token
         uses: peter-murray/workflow-application-token-action@v1
