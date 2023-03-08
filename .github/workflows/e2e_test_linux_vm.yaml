@@ -12,10 +12,11 @@ jobs:
         run: |
           PATH=$(go env GOPATH)/bin:$PATH
           kind create cluster --name e2e-test
-      - name: Echo tag
-        run: echo "0.0."$GITHUB_SHA
       - name: Docker Build Test Image
-        run: docker build . --tag "0.0."$GITHUB_SHA
+        run: |
+            export VERSION="0.0."$GITHUB_SHA
+            echo $VERSION
+            make docker-buildx
       - name: Load Image to Kind Cluster
         run: kind load docker-image ${{ steps.version-tag.outputs.stdout }} --name ${{ inputs.kind-cluster }}
       - name: Get Token
