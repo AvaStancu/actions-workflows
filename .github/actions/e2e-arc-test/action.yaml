@@ -6,16 +6,16 @@ inputs:
     description: 'JWT generated with Github App inputs'
     required: true
   docker-image-tag:
-    description: "Tag of ARC Docker image to be deployed for testing"
+    description: "Tag of ARC Docker image for testing"
     required: true
-  tag:
-    description: "https://github.com/AvaStancu/actions-workflows"
+  docker-image-repo:
+    description: "Local docker image repo for testing"
     required: true
 runs:
   using: "composite"
   steps:
     - name: Install ARC
-      run: helm install arc --namespace "arc-systems" --create-namespace --set image.tag=${{ inputs.docker-image-tag }} --set image.repository="test/test-image" --set image.pullPolicy=Never ./charts/actions-runner-controller-2
+      run: helm install arc --namespace "arc-systems" --create-namespace --set image.tag=${{ inputs.docker-image-tag }} --set image.repository=${{ inputs.docker-image-repo }} ./charts/actions-runner-controller-2
       shell: bash
     - name: Get datetime
       run: echo "DATE_TIME=$(date +'%Y-%m-%d-%H-%M-%S-%3N')" >> $GITHUB_ENV
