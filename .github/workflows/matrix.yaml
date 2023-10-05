@@ -1,1 +1,25 @@
-
+name: ARC-REUSABLE-WORKFLOW
+on:
+  workflow_dispatch:
+jobs:
+  some-job:
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     job: [1, 2, 3]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        fruit: [apple, pear]
+        animal: [cat, dog]
+        include:
+          - color: green
+          - color: pink
+            animal: cat
+          - fruit: apple
+            shape: circle
+          - fruit: banana
+          - fruit: banana
+            animal: cat
+    steps:
+      - run: echo "Hello World!" >> $GITHUB_STEP_SUMMARY
