@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        fruit: [apple, pear]
-        animal: [cat, dog]
+        fruit: [apple, pear, grapes, melon, orange, lemon, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty]
+        animal: [cat, dog, bear, penguin, mouse, horse, lion, leopard, giraffe, whale]
         include:
           - color: green
           - color: pink
