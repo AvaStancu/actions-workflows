@@ -1,0 +1,12 @@
+name: Workflow level group permit
+on: [workflow_dispatch]
+concurrency: test-group
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Run a one-line script
+        run: echo Hello, world1!
+      - name: Ping
+        run: ping -c 90 localhost
