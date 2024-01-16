@@ -5,15 +5,15 @@ on:
 concurrency: foo
 
 jobs:
-  child1:
-    runs-on: ubuntu-latest 
-    concurrency: bar
-    steps:
-      - uses: actions/checkout@v3
-      - name: Hello 1
-        run: echo Hello, world1!
+  # child1:
+  #   runs-on: ubuntu-latest 
+  #   concurrency: bar
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Hello 1
+  #       run: echo Hello, world1!
   child2:
-    needs: ["child1"]
+    # needs: ["child1"]
     runs-on: ubuntu-latest 
     concurrency: foo
     steps:
