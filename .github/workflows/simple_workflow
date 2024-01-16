@@ -1,0 +1,10 @@
+name: Workflow with labels
+on: [workflow_dispatch]
+
+jobs:
+  deploy:
+    runs-on: [azure-nonprod]
+    steps:
+      - name: Run a one-line script
+        run: echo Hello, world1!
+        
