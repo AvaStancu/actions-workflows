@@ -4,6 +4,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  call-reusableA:
+  call-reusableB:
     uses: AvaStancu/actions-workflows/.github/workflows/reusableB.yaml@master
     concurrency: reusableA
