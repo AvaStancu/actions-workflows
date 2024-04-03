@@ -5,5 +5,5 @@ on:
 
 jobs:
   call-reusableA:
-    uses: AvaStancu/actions-workflows/.github/workflows/reusableA.yaml@main
+    uses: actions-workflows/.github/workflows/reusableA.yaml@main
     concurrency: reusableA
