@@ -1,0 +1,9 @@
+name: reusableB
+on:
+  workflow_call:
+
+concurrency: reusable-top-level
+
+jobs:
+  call-reusableA:
+    uses: AvaStancu/actions-workflows/.github/workflows/reusableA.yaml@master
