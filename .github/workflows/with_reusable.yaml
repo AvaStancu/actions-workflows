@@ -1,0 +1,9 @@
+name: with-reusab;e
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-reusableA:
+    uses: AvaStancu/actions-workflows/.github/workflows/reusableA.yaml@main
+    concurrency: reusableA
