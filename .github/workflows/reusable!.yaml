@@ -1,0 +1,13 @@
+name: reusableA
+on:
+  workflow_call:
+
+concurrency: reusable-top-level
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+    - uses: actions/checkout@v4
+    - run: echo "Hello, world!"  
