@@ -2,7 +2,7 @@ name: reusableB
 on:
   workflow_call:
 
-concurrency: reusable-top-level
+concurrency: reusableA
 
 jobs:
   call-reusableA:
