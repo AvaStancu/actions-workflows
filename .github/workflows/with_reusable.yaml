@@ -1,4 +1,4 @@
-name: with-reusab;e
+name: with-reusable
 
 on:
   workflow_dispatch:
