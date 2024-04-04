@@ -11,4 +11,3 @@ charts
 *.md
 *.txt
 *.sh
-test/e2e/.docker-build
