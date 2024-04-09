@@ -1,0 +1,16 @@
+name: Reproduction for symlink issue
+
+on:
+  workflow_dispatch:
+
+jobs:
+  testing-composite-action:
+    name: test composite action with symlinked file in repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Scala Commons Dependencies
+        uses: Collin3/gha-composite-action-issue-repro/.github/actions/composite-action-bug@main
+
+  test-reusable-workflow:
+    name: test reusable workflow with symlinked file in repo
+    uses: Collin3/gha-composite-action-issue-repro/.github/workflows/test-reusable-workflow.yml@main
