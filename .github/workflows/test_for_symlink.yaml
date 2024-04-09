@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Scala Commons Dependencies
-        uses: Collin3/gha-composite-action-issue-repro/.github/actions/composite-action-bug/action.yml@main
+        uses: Collin3/gha-composite-action-issue-repro/.github/actions/composite-action-bug@main
 
   test-reusable-workflow:
     name: test reusable workflow with symlinked file in repo
